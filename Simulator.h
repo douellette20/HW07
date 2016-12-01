@@ -53,7 +53,8 @@ private:
 
 public:
 	
-	Simulator() {
+	Simulator()
+	{
 		landing_queue = new LandingQueue();
 		service_queue = new ServiceQueue();
 		departure_queue = new DepartureQueue();
@@ -69,7 +70,7 @@ public:
 		double arrival_rate = rate/60.0;
 
 		int min_service = read_int("Please enter the minimum service time (mins): ", 0, INT_MAX);
-		int max_service = read_int("Please enter the maximum service time (mins): ", 0, INT_MAX);
+		int max_service = read_int("Please enter the maximum service time (mins): ", min_service, INT_MAX);
 		int departure_time = read_int("Please enter the departure time (mins): ", 1, INT_MAX);
 
 		total_time = read_int("Please enter the simulation time (hours): ", 1, INT_MAX);
@@ -104,13 +105,16 @@ public:
 	{
 		std::cout << "Number of planes served in the arrival queue: " << landing_queue->get_num_served() << std::endl;
 		std::cout << "Total wait time for all planes in arrival queue: " << landing_queue->get_total_wait() << std::endl;
-		// FIXME: Calculate and display the average wait time for the landing queue
-		
+		// DONE: Calculate and display the average wait time for the landing queue
+		double LQAWT = (double)(landing_queue->get_total_wait()) / landing_queue->get_num_served();
+		std::cout << "Average wait time for the landing queue: " << LQAWT << std::endl;
 
 		std::cout << std::endl;
 		std::cout << "Number of planes served in the departure queue: " << departure_queue->get_num_served() << std::endl;
 		std::cout << "Total wait time for all planes in departure queue: " << departure_queue->get_total_wait() << std::endl;
 		// FIXME: Calculate and display the average wait time for the departure queue
+		double DQAWT = (double)(departure_queue->get_total_wait()) / landing_queue->get_num_served();
+		std::cout << "Average wait time for the departure queue: " << DQAWT << std::endl;
 		
 		std::cout << std::endl;
 
